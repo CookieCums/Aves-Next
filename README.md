@@ -2,12 +2,12 @@
 
 <img src="https://raw.githubusercontent.com/deckerst/aves/develop/aves_logo.svg" alt='Aves logo' width="200" />
 
-## Aves
+## Aves-Next
 
 ![Version badge][Version badge]
 ![Build badge][Build badge]
 
-Aves is a gallery and metadata explorer app. It is built for Android, with Flutter.
+Aves-Next is a fork of Aves, a gallery and metadata explorer app built for Android with Flutter.
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
       alt='Get it on Google Play'
@@ -26,19 +26,19 @@ Aves is a gallery and metadata explorer app. It is built for Android, with Flutt
       height="80">](https://github.com/deckerst/aves/releases/latest)
 
 
-[Compare versions](https://github.com/deckerst/aves/wiki/App-Versions)
+[Compare versions](https://github.com/CookieCums/Aves-Next/wiki/App-Versions)
       
 <div align="left">
 
 ## Features
 
-Aves can handle all sorts of images and videos, including your typical JPEGs and MP4s, but also more exotic things like **multi-page TIFFs, SVGs, old AVIs and more**!
+Aves-Next can handle all sorts of images and videos, including your typical JPEGs and MP4s, but also more exotic things like **multi-page TIFFs, SVGs, old AVIs and more**!
 
 It scans your media collection to identify **motion photos**, **panoramas** (aka photo spheres), **360° videos**, as well as **GeoTIFF** files.
 
-**Navigation and search** is an important part of Aves. The goal is for users to easily flow from albums to photos to tags to maps, etc.
+**Navigation and search** is an important part of Aves-Next. The goal is for users to easily flow from albums to photos to tags to maps, etc.
 
-Aves integrates with Android (including Android TV) with features such as **widgets**, **app shortcuts**, **screen saver** and **global search** handling. It also works as a **media viewer and picker**.
+Aves-Next integrates with Android (including Android TV) with features such as **widgets**, **app shortcuts**, **screen saver** and **global search** handling. It also works as a **media viewer and picker**.
 
 ## Screenshots
 
@@ -72,21 +72,21 @@ Aves integrates with Android (including Android TV) with features such as **widg
 
 ## Changelog
 
-The list of changes for past and future releases is available [here](https://github.com/deckerst/aves/blob/develop/CHANGELOG.md).
+The list of changes for past and future releases is available [here](https://github.com/CookieCums/Aves-Next/blob/develop/CHANGELOG.md).
 
 ## Permissions
 
-Aves requires a few permissions to do its job:
+Aves-Next requires a few permissions to do its job:
 - **read contents of shared storage**: the app only accesses media files, and modifying them requires explicit access grants from the user,
 - **read locations from media collection**: necessary to display the media coordinates, and to group them by country (via reverse geocoding),
 - **have network access**: necessary for the map view, and most likely for precise reverse geocoding too,
-- **view network connections**: checking for connection states allows Aves to gracefully degrade features that depend on internet.
+- **view network connections**: checking for connection states allows Aves-Next to gracefully degrade features that depend on internet.
 
 ## Contributing
 
 ### Issues
 
-[Bug reports](https://github.com/deckerst/aves/issues/new?assignees=&labels=type%3Abug&template=bug_report.yml&title=) and [feature requests](https://github.com/deckerst/aves/issues/new?assignees=&labels=type%3Afeature&template=feature_request.yml&title=) are welcome, but read the [guidelines](https://github.com/deckerst/aves/issues/234) first. If you have questions, check out the [discussions](https://github.com/deckerst/aves/discussions).
+[Bug reports](https://github.com/CookieCums/Aves-Next/issues/new?assignees=&labels=type%3Abug&template=bug_report.yml&title=) and [feature requests](https://github.com/CookieCums/Aves-Next/issues/new?assignees=&labels=type%3Afeature&template=feature_request.yml&title=) are welcome, but read the [guidelines](https://github.com/CookieCums/Aves-Next/wiki) first. If you have questions, check out the [discussions](https://github.com/CookieCums/Aves-Next/discussions).
 
 ### Code
 
@@ -99,7 +99,7 @@ Translations are powered by [Weblate](https://hosted.weblate.org/engage/aves/) a
 <img src="https://hosted.weblate.org/widgets/aves/-/multi-auto.svg" alt="Translation status" />
 </a>
 
-If you want to translate this app in your language and share the result, [there is a guide](https://github.com/deckerst/aves/wiki/Contributing-to-Translations).
+If you want to translate this app in your language and share the result, [there is a guide](https://github.com/CookieCums/Aves-Next/wiki/Contributing-to-Translations).
 
 ### Donations
 
@@ -119,7 +119,7 @@ Before running or building the app, update the dependencies for the desired flav
 # scripts/apply_flavor_play.sh
 ```
 
-To build the project, create a file named `<app dir>/android/key.properties`. It should contain a reference to a keystore for app signing, and other necessary credentials. See [key_template.properties](https://github.com/deckerst/aves/blob/develop/android/key_template.properties) for the expected keys.
+To build the project, create a file named `<app dir>/android/key.properties`. It should contain a reference to a keystore for app signing, and other necessary credentials. See [key_template.properties](https://github.com/CookieCums/Aves-Next/blob/develop/android/key_template.properties) for the expected keys.
 
 To run the app:
 ```
@@ -137,5 +137,5 @@ To debug the app Kotlin code, if attaching the debugger from Android Studio fail
 process handle SIGSEGV --pass true --stop false --notify true
 ```
 
-[Version badge]: https://img.shields.io/github/v/release/deckerst/aves?include_prereleases&sort=semver
-[Build badge]: https://img.shields.io/github/actions/workflow/status/deckerst/aves/quality-check.yml?branch=develop
+[Version badge]: https://img.shields.io/github/v/release/CookieCums/Aves-Next?include_prereleases&sort=semver
+[Build badge]: https://img.shields.io/github/actions/workflow/status/CookieCums/Aves-Next/build-apk.yml?branch=develop
