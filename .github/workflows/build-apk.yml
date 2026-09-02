@@ -7,6 +7,16 @@ on:
   push:
     branches:
       - develop
+    paths:
+      - '.github/workflows/build-apk.yml'
+      - 'android/**'
+      - 'assets/**'
+      - 'lib/**'
+      - 'scripts/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'flutterw'
+      - '.gitmodules'
 
 permissions:
   contents: read
