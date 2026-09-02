@@ -79,7 +79,7 @@ class BugReportContent extends StatefulWidget {
 
 class _BugReportContentState extends State<BugReportContent> with FeedbackMixin {
   late Future<String> _infoLoader;
-  static const bugReportUrl = '${AppReference.avesGithub}/issues/new?labels=type%3Abug&template=bug_report.yml';
+  static const bugReportUrl = '${AppReference.projectGithub}/issues/new?labels=type%3Abug&template=bug_report.yml';
 
   @override
   void initState() {
@@ -161,7 +161,7 @@ class _BugReportContentState extends State<BugReportContent> with FeedbackMixin 
     final tagCount = source.sortedTags.length;
 
     return [
-      'Aves: ${device.packageVersion}-$flavor, build ${packageInfo.buildNumber}, package=${device.packageName}, installer=${packageInfo.installerStore}',
+      'Aves-Next: ${device.packageVersion}-$flavor, build ${packageInfo.buildNumber}, package=${device.packageName}, installer=${packageInfo.installerStore}',
       'Flutter: ${FlutterVersion.channel} ${FlutterVersion.version}',
       'Android: ${androidInfo.version.release}, API ${androidInfo.version.sdkInt}, MPC $mpc, build: ${androidInfo.display}',
       'Device: ${androidInfo.manufacturer} ${androidInfo.model}',
@@ -191,7 +191,7 @@ class _BugReportContentState extends State<BugReportContent> with FeedbackMixin 
 
     final date = DateFormat('yyyyMMdd_HHmmss', kAsciiLocale).format(DateTime.now());
     final success = await storageService.createFile(
-      basename: 'aves-logs-$date',
+      basename: 'aves-next-logs-$date',
       mimeType: MimeTypes.plainText,
       bytes: utf8.encode(mixedContent),
     );
