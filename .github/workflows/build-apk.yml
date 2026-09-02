@@ -44,22 +44,26 @@ jobs:
       - name: Generate app localizations
         run: ./flutterw gen-l10n
 
+      - name: Prepare APK output directories
+        run: mkdir -p outputs/libre outputs/izzy
+
       - name: Build Libre release APKs
         run: |
           scripts/apply_flavor_libre.sh
           ./flutterw build apk -t lib/main_libre.dart --flavor libre --split-per-abi
+          cp build/app/outputs/flutter-apk/*-libre-release.apk outputs/libre/
 
       - name: Build Izzy release APKs
         run: |
           scripts/apply_flavor_izzy.sh
           ./flutterw build apk -t lib/main_izzy.dart --flavor izzy --split-per-abi
-
-      - name: Collect APKs
-        run: |
-          mkdir -p outputs/libre outputs/izzy
-          cp build/app/outputs/flutter-apk/*-libre-release.apk outputs/libre/
           cp build/app/outputs/flutter-apk/*-izzy-release.apk outputs/izzy/
+
+      - name: Verify collected APKs
+        run: |
           find outputs -type f -name '*.apk' -print
+          test "$(find outputs/libre -type f -name '*.apk' | wc -l)" -eq 3
+          test "$(find outputs/izzy -type f -name '*.apk' | wc -l)" -eq 3
           test "$(find outputs -type f -name '*.apk' | wc -l)" -eq 6
 
       - name: Upload APK artifacts
