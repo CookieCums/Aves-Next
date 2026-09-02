@@ -1,0 +1,68 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apk-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Android APKs
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout repository and Flutter submodule
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          submodules: recursive
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Verify Flutter wrapper
+        run: ./flutterw --version
+
+      - name: Get Flutter packages
+        run: ./flutterw pub get
+
+      - name: Generate app localizations
+        run: ./flutterw gen-l10n
+
+      - name: Build Libre release APKs
+        run: |
+          scripts/apply_flavor_libre.sh
+          ./flutterw build apk -t lib/main_libre.dart --flavor libre --split-per-abi
+
+      - name: Build Izzy release APKs
+        run: |
+          scripts/apply_flavor_izzy.sh
+          ./flutterw build apk -t lib/main_izzy.dart --flavor izzy --split-per-abi
+
+      - name: Collect APKs
+        run: |
+          mkdir -p outputs/libre outputs/izzy
+          cp build/app/outputs/apk/libre/release/*.apk outputs/libre/
+          cp build/app/outputs/apk/izzy/release/*.apk outputs/izzy/
+          find outputs -type f -name '*.apk' -print
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aves-next-apks-${{ github.sha }}
+          path: outputs/**/*.apk
+          if-no-files-found: error
+          retention-days: 14
