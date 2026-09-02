@@ -67,7 +67,7 @@ jobs:
           test "$(find outputs -type f -name '*.apk' | wc -l)" -eq 6
 
       - name: Upload APK artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: aves-next-apks-${{ github.sha }}
           path: outputs/**/*.apk
