@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/aves-next-bird.svg" alt="Aves-Next bird logo" width="320" />
+<img src="assets/aves-next-bird.svg" alt="Aves-Next bird logo" width="340" />
 
 ## Aves-Next
 
