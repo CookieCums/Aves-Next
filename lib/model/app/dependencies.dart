@@ -141,39 +141,14 @@ class Dependencies {
     ),
   ];
 
-  static const List<Dependency> _googleMobileServices = [
-    Dependency(
-      name: 'Google API Availability',
-      license: mit,
-      sourceUrl: 'https://github.com/Baseflow/flutter-google-api-availability',
-    ),
-    Dependency(
-      name: 'Google Maps for Flutter',
-      license: bsd3,
-      sourceUrl: 'https://github.com/flutter/packages/tree/main/packages/google_maps_flutter/google_maps_flutter',
-    ),
-  ];
-
-  static const List<Dependency> _flutterPluginsIzzyOnly = [
-    ..._googleMobileServices,
-  ];
+  static const List<Dependency> _flutterPluginsIzzyOnly = [];
 
   static const List<Dependency> _flutterPluginsLibreOnly = [];
-
-  static const List<Dependency> _flutterPluginsPlayOnly = [
-    ..._googleMobileServices,
-    Dependency(
-      name: 'FlutterFire (Core, Crashlytics)',
-      license: bsd3,
-      sourceUrl: 'https://github.com/FirebaseExtended/flutterfire',
-    ),
-  ];
 
   static List<Dependency> flutterPlugins(AppFlavor flavor) => [
     ..._flutterPluginsCommon,
     if (flavor == AppFlavor.izzy) ..._flutterPluginsIzzyOnly,
     if (flavor == AppFlavor.libre) ..._flutterPluginsLibreOnly,
-    if (flavor == AppFlavor.play) ..._flutterPluginsPlayOnly,
   ];
 
   static const List<Dependency> flutterPackages = [
