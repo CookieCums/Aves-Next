@@ -60,7 +60,6 @@ android {
     }
 
     flavorDimensions += "store"
-
     productFlavors {
         create("izzy") { dimension = "store" }
         create("libre") {
@@ -77,6 +76,8 @@ android {
         getByName("release") {
             if (signingConfigs.names.contains("release")) {
                 signingConfig = signingConfigs.getByName("release")
+            } else {
+                println("Skip release signing as it is not configured")
             }
             isMinifyEnabled = true
             isShrinkResources = true
@@ -102,6 +103,7 @@ android {
                 val baseAbiVersionCode = abiCodes[abi]
                 if (baseAbiVersionCode != null) {
                     val versionCodeOverride = versionCode * 100 + baseAbiVersionCode
+                    println("  output versionCodeOverride=$versionCodeOverride for abi=$abi")
                     (output as ApkVariantOutputImpl).versionCodeOverride = versionCodeOverride
                 }
             }
