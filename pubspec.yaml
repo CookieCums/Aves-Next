@@ -120,6 +120,8 @@ dependencies:
     git:
       url: https://github.com/deckerst/flutter_percent_indicator.git
       ref: aves
+  permission_handler:
+  pin_code_fields:
   printing:
   proj4dart:
   provider:
