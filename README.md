@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/aves-next-logo.svg" alt="Aves-Next logo" width="180" />
+
 ## Aves-Next
 
 ![Version badge][Version badge]
