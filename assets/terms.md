@@ -18,8 +18,8 @@ __Optionally, with your consent, the app collects anonymous error and diagnostic
 
 ## Contact
 
-Developer: Thibault Deckers
+Developer: Aves-Next
 
-Email: [gallery.aves@gmail.com](mailto:gallery.aves@gmail.com)
+Email: [gs930123@gmail.com](mailto:gs930123@gmail.com)
 
-Website: [https://github.com/deckerst/aves](https://github.com/deckerst/aves)
+Website:
