@@ -1,6 +1,7 @@
 name: Build APK
 
 # APK build pipeline; release APKs are uploaded as workflow artifacts.
+# Verify the current post-cleanup dependency graph on pushes to develop.
 
 on:
   workflow_dispatch:
