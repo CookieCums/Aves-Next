@@ -6,7 +6,7 @@ The app is designed for legal, authorized and acceptable purposes.
 
 ## Disclaimer
 
-The app is released “as-is”, without any warranty, responsibility or liability. Use of the app is at your own risk.
+The app is released “as-is”, without any warranty, responsibility or liability. Use of the app at your own risk.
 
 ## Privacy Policy
 
@@ -18,7 +18,7 @@ __Optionally, with your consent, the app collects anonymous error and diagnostic
 
 ## Contact
 
-Developer: Thibault Deckers
+Developer: Gautam Nath Sharma (originally developed by Thibault Deckers)
 
 Email: [gs930123@gmail.com](mailto:gs930123@gmail.com)
 
