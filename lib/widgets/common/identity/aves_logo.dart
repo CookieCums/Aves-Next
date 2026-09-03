@@ -49,6 +49,13 @@ class AvesLogoPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final scale = size.width / 512;
 
+    // The master mark is intentionally scaled up inside the app's circular badge.
+    // The outer badge remains unchanged; only the bird artwork gets larger.
+    canvas.save();
+    canvas.translate(size.width / 2, size.height / 2);
+    canvas.scale(1.5);
+    canvas.translate(-size.width / 2, -size.height / 2);
+
     Path transformPath(List<Offset> points) {
       final path = Path();
       path.moveTo(points.first.dx * scale, points.first.dy * scale);
@@ -117,6 +124,8 @@ class AvesLogoPainter extends CustomPainter {
       6 * scale,
       sparkPaint,
     );
+
+    canvas.restore();
   }
 
   @override
