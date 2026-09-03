@@ -18,7 +18,7 @@ __Optionally, with your consent, the app collects anonymous error and diagnostic
 
 ## Contact
 
-Developer: Aves-Next
+Developer: Thibault Deckers
 
 Email: [gs930123@gmail.com](mailto:gs930123@gmail.com)
 
