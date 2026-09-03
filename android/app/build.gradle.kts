@@ -4,7 +4,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -16,13 +16,9 @@ val keystoreProperties = Properties()
 val keystorePropertiesFile: File = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     println("Load keystore props from file=$keystorePropertiesFile")
-    // for release using credentials stored in a local file
     keystorePropertiesFile.inputStream().use { keystoreProperties.load(it) }
 } else {
     println("Load keystore props from system environment")
-    // for release using credentials in environment variables set up by GitHub Actions
-    // warning: in property file, single quotes should be escaped with a backslash,
-    // but they should not be escaped when stored in env variables
     val env = System.getenv()
     fun getEnv(propKey: String, envKey: String) {
         if (envKey in env) {
@@ -42,20 +38,13 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        // enable support for the new language APIs on older devices
-        // e.g. `java/util/function/Supplier` on Android 5.0 (API 21)
         isCoreLibraryDesugaringEnabled = true
     }
 
     kotlin {
-        // Gradle looks up toolchain JDKs (for this app and each of its modules)
-        // among locally installed JDKs (including in `~/.gradle/jdks/` and `~/jdks`)
-        // and download them from configured repositories if necessary.
         jvmToolchain {
             languageVersion.set(JavaLanguageVersion.of(21))
-            vendor.set(JvmVendorSpec.ADOPTIUM) // Temurin
-            // for consistency, refresh `gradle-daemon-jvm.properties` with the following:
-            // ./gradlew updateDaemonJvm --jvm-version=21 --jvm-vendor=ADOPTIUM
+            vendor.set(JvmVendorSpec.ADOPTIUM)
         }
     }
 
@@ -85,40 +74,19 @@ android {
     flavorDimensions += "store"
 
     productFlavors {
-        create("play") {
-            // Google Play
-            dimension = "store"
-        }
-
-        create("izzy") {
-            // IzzyOnDroid
-            // check offending libraries with `scanapk`
-            // cf https://android.izzysoft.de/articles/named/app-modules-2
-            dimension = "store"
-        }
-
+        create("play") { dimension = "store" }
+        create("izzy") { dimension = "store" }
         create("libre") {
-            // F-Droid
-            // check offending libraries with `fdroidserver`
-            // cf https://f-droid.org/en/docs/Submitting_to_F-Droid_Quick_Start_Guide/
             dimension = "store"
             applicationIdSuffix = ".libre"
         }
     }
 
-    buildFeatures {
-        resValues = true
-    }
+    buildFeatures { resValues = true }
 
     buildTypes {
-        getByName("debug") {
-            applicationIdSuffix = ".debug"
-        }
-
-        getByName("profile") {
-            applicationIdSuffix = ".profile"
-        }
-
+        getByName("debug") { applicationIdSuffix = ".debug" }
+        getByName("profile") { applicationIdSuffix = ".profile" }
         getByName("release") {
             if (signingConfigs.names.contains("release")) {
                 signingConfig = signingConfigs.getByName("release")
@@ -128,38 +96,22 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-
-            // NDK ABI filters are incompatible with split APK generation,
-            // but filters are necessary to exclude x86 native libs from universal APKs
-            // cf https://github.com/flutter/flutter/issues/37566#issuecomment-640879500
             var useNdkAbiFilters = true
             if (rootProject.extra.has("split-per-abi")) {
                 val splitPerAbi = rootProject.extra["split-per-abi"]
-                if (splitPerAbi == "true" || splitPerAbi == true) {
-                    useNdkAbiFilters = false
-                }
+                if (splitPerAbi == "true" || splitPerAbi == true) useNdkAbiFilters = false
             }
             if (useNdkAbiFilters) {
-                ndk {
-                    //noinspection ChromeOsAbiSupport
-                    abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86_64")
-                }
+                ndk { abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86_64") }
             }
         }
 
-        val abiCodes = mapOf(
-            "armeabi-v7a" to 1,
-            "arm64-v8a" to 2,
-            "x86" to 3,
-            "x86_64" to 4
-        )
+        val abiCodes = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4)
 
         applicationVariants.all {
             println("Application variant applicationId=$applicationId name=$name")
-
             resValue("string", "screen_saver_settings_activity", "${applicationId}/${packageName}.ScreenSaverSettingsActivity")
             resValue("string", "search_provider", "${applicationId}.search_provider")
-
             outputs.forEach { output ->
                 val abi = output.filters.find { it.filterType == "ABI" }?.identifier
                 val baseAbiVersionCode = abiCodes[abi]
@@ -175,16 +127,11 @@ android {
 
 androidComponents {
     onVariants(selector().withFlavor("store", "izzy")) { variant ->
-        // uncompressed native libraries are recommended:
-        // https://developer.android.com/build/releases/agp-4-2-0-release-notes#compress-native-libs-dsl
-        // but compressed native libraries yield smaller APK files, following Izzy's policy
         variant.packaging.jniLibs.useLegacyPackaging = true
     }
 }
 
-flutter {
-    source = "../.."
-}
+flutter { source = "../.." }
 
 repositories {
     maven {
@@ -196,18 +143,13 @@ repositories {
     }
     maven {
         url = uri("https://s3.amazonaws.com/repo.commonsware.com")
-        content {
-            excludeGroupByRegex("com\\.github\\.deckerst.*")
-        }
+        content { excludeGroupByRegex("com\\.github\\.deckerst.*") }
     }
 }
 
 dependencies {
-    // cf https://developer.android.com/studio/write/java8-support#library-desugaring
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
-
     implementation(libs.kotlinx.coroutines.android)
-
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.ktx)
@@ -215,41 +157,20 @@ dependencies {
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.media)
     implementation(libs.androidx.multidex)
-    // Jetpack `security-crypto` library is deprecated:
-    // https://developer.android.com/privacy-and-security/cryptography#security-crypto-jetpack-deprecated
     implementation(libs.androidx.security.crypto)
     implementation(libs.androidx.work.runtime)
-
     implementation(libs.commonsware.cwac)
     implementation(libs.metadata.extractor)
     implementation(libs.glide)
     implementation(libs.google.material)
-    // SLF4J implementation for `mp4parser`
     implementation(libs.slf4j)
-
-    // forked, built by JitPack:
-    // - https://jitpack.io/p/deckerst/Android-TiffBitmapFactory
-    // - https://jitpack.io/p/deckerst/androidsvg
-    // - https://jitpack.io/p/deckerst/mp4parser
-    // - https://jitpack.io/p/deckerst/pixymeta-android
     implementation(libs.deckerst.tiffbitmapfactory)
     implementation(libs.deckerst.androidsvg)
     implementation(libs.deckerst.mp4parser.isoparser)
     implementation(libs.deckerst.mp4parser.muxer)
     implementation(libs.deckerst.pixymeta)
     implementation(project(":exifinterface"))
-
     testImplementation(libs.junit)
-
     ksp(libs.glideKsp)
-
     compileOnly(rootProject.findProject(":streams_channel")!!)
-}
-
-if (rootProject.extra["aves_useCrashlytics"] as Boolean) {
-    println("Building flavor with Crashlytics plugin")
-    apply(plugin = "com.google.gms.google-services")
-    apply(plugin = "com.google.firebase.crashlytics")
-} else {
-    println("Building flavor without reporting plugin")
 }
