@@ -4,13 +4,10 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 val packageName = "ai.avesnext"
-
-// Keys
 
 val keystoreProperties = Properties()
 val keystorePropertiesFile: File = rootProject.file("key.properties")
@@ -21,15 +18,12 @@ if (keystorePropertiesFile.exists()) {
     println("Load keystore props from system environment")
     val env = System.getenv()
     fun getEnv(propKey: String, envKey: String) {
-        if (envKey in env) {
-            keystoreProperties[propKey] = env[envKey]
-        }
+        if (envKey in env) keystoreProperties[propKey] = env[envKey]
     }
     getEnv("storeFile", "AVES_STORE_FILE")
     getEnv("storePassword", "AVES_STORE_PASSWORD")
     getEnv("keyAlias", "AVES_KEY_ALIAS")
     getEnv("keyPassword", "AVES_KEY_PASSWORD")
-    getEnv("googleApiKey", "AVES_GOOGLE_API_KEY")
 }
 
 android {
@@ -37,9 +31,7 @@ android {
     compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
+    compileOptions { isCoreLibraryDesugaringEnabled = true }
 
     kotlin {
         jvmToolchain {
@@ -54,14 +46,12 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        manifestPlaceholders["googleApiKey"] = keystoreProperties["googleApiKey"] ?: "NONE"
         multiDexEnabled = true
     }
 
     signingConfigs {
         val storeFilePath = keystoreProperties["storeFile"] as String?
         if (storeFilePath != null) {
-            println("Create signing config for release using file=$storeFilePath")
             create("release") {
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
@@ -72,7 +62,6 @@ android {
     }
 
     flavorDimensions += "store"
-
     productFlavors {
         create("play") { dimension = "store" }
         create("izzy") { dimension = "store" }
@@ -88,11 +77,8 @@ android {
         getByName("debug") { applicationIdSuffix = ".debug" }
         getByName("profile") { applicationIdSuffix = ".profile" }
         getByName("release") {
-            if (signingConfigs.names.contains("release")) {
-                signingConfig = signingConfigs.getByName("release")
-            } else {
-                println("Skip release signing as it is not configured")
-            }
+            if (signingConfigs.names.contains("release")) signingConfig = signingConfigs.getByName("release")
+            else println("Skip release signing as it is not configured")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -101,13 +87,10 @@ android {
                 val splitPerAbi = rootProject.extra["split-per-abi"]
                 if (splitPerAbi == "true" || splitPerAbi == true) useNdkAbiFilters = false
             }
-            if (useNdkAbiFilters) {
-                ndk { abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86_64") }
-            }
+            if (useNdkAbiFilters) ndk { abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86_64") }
         }
 
         val abiCodes = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4)
-
         applicationVariants.all {
             println("Application variant applicationId=$applicationId name=$name")
             resValue("string", "screen_saver_settings_activity", "${applicationId}/${packageName}.ScreenSaverSettingsActivity")
