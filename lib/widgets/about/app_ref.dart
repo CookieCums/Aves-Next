@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 class AppReference extends StatelessWidget {
   static const projectGithub = 'https://github.com/CookieCums/Aves-Next';
   static const projectFaq = '$projectGithub/wiki/FAQ';
+  // Backward-compatible names used throughout the app.
+  static const avesGithub = projectGithub;
+  static const avesFaq = projectFaq;
   static const appName = 'Aves-Next';
 
   const AppReference({super.key});
