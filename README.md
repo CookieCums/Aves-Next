@@ -1,141 +1,119 @@
 <div align="center">
 
-<img src="assets/aves-next-bird.svg" alt="Aves-Next bird logo" width="340" />
+<img src="assets/aves-next-bird.svg" alt="Aves-Next bird logo" width="300" />
 
 ## Aves-Next
 
-![Version badge][Version badge]
 ![Build badge][Build badge]
 
-Aves-Next is a fork of Aves, a gallery and metadata explorer app built for Android with Flutter.
+Aves-Next is a community fork of Aves, a gallery and metadata explorer app built for Android with Flutter. The project focuses on an independent, Google-service-free Android build and Aves-Next-specific branding and tooling.
 
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-      alt='Get it on Google Play'
-      height="80">](https://play.google.com/store/apps/details?id=deckers.thibault.aves&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
-      alt='Get it on IzzyOnDroid'
-      height="80">](https://apt.izzysoft.de/fdroid/index/apk/deckers.thibault.aves)
-[<img src="https://raw.githubusercontent.com/deckerst/common/main/assets/obtainium-badge-english.png"
-      alt='Get it on Obtainium'
-      height="80">](https://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/deckerst/aves)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-      alt='Get it on F-Droid'
-      height="80">](https://f-droid.org/packages/deckers.thibault.aves.libre)
-[<img src="https://raw.githubusercontent.com/deckerst/common/main/assets/get-it-on-github.png"
-      alt='Get it on GitHub'
-      height="80">](https://github.com/deckerst/aves/releases/latest)
+## Downloads
 
+Aves-Next currently publishes two Android build variants:
 
-[Compare versions](https://github.com/CookieCums/Aves-Next/wiki/App-Versions)
-      
-<div align="left">
+- **Libre** — the general free/open-source build.
+- **Izzy** — the build intended for distribution through the IzzyOnDroid/F-Droid ecosystem.
+
+Release APKs are currently produced by GitHub Actions as workflow artifacts. Open the [Build APK workflow](https://github.com/CookieCums/Aves-Next/actions/workflows/build-apk.yml), select a successful run, and download its artifact. Each verified build contains three ABI-split APKs for both Libre and Izzy.
+
+There are no official Aves-Next Google Play releases at this time, so this README does not advertise the old Aves Play listing or old package IDs.
 
 ## Features
 
-Aves-Next can handle all sorts of images and videos, including your typical JPEGs and MP4s, but also more exotic things like **multi-page TIFFs, SVGs, old AVIs and more**!
+Aves-Next can handle all sorts of images and videos, including typical JPEGs and MP4s, as well as more exotic formats such as **multi-page TIFFs, SVGs, old AVIs and more**.
 
 It scans your media collection to identify **motion photos**, **panoramas** (aka photo spheres), **360° videos**, as well as **GeoTIFF** files.
 
-**Navigation and search** is an important part of Aves-Next. The goal is for users to easily flow from albums to photos to tags to maps, etc.
+**Navigation and search** are important parts of Aves-Next. The goal is to let users move easily from albums to photos to tags, maps, and other views.
 
 Aves-Next integrates with Android (including Android TV) with features such as **widgets**, **app shortcuts**, **screen saver** and **global search** handling. It also works as a **media viewer and picker**.
 
-## Screenshots
-
-<div align="center">
-
-[<img src="https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/readme/en/1.png"
-      alt='Collection screenshot'
-      width="130" />](https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/play/en/1.png)
-[<img
-      src="https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/readme/en/2.png"
-      alt='Image screenshot'
-      width="130" />](https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/play/en/2.png)
-[<img
-      src="https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/readme/en/5.png"
-      alt='Stats screenshot'
-      width="130" />](https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/play/en/5.png)
-[<img
-      src="https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/readme/en/3.png"
-      alt='Info (basic) screenshot'
-      width="130" />](https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/play/en/3.png)
-[<img
-      src="https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/readme/en/4.png"
-      alt='Info (metadata) screenshot'
-      width="130" />](https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/play/en/4.png)
-[<img
-      src="https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/readme/en/6.png"
-      alt='Countries screenshot'
-      width="130" />](https://raw.githubusercontent.com/deckerst/aves_extra/main/screenshots/play/en/6.png)
-
-<div align="left">
-
-## Changelog
-
-The list of changes for past and future releases is available [here](https://github.com/CookieCums/Aves-Next/blob/develop/CHANGELOG.md).
-
-## Permissions
-
-Aves-Next requires a few permissions to do its job:
-- **read contents of shared storage**: the app only accesses media files, and modifying them requires explicit access grants from the user,
-- **read locations from media collection**: necessary to display the media coordinates, and to group them by country (via reverse geocoding),
-- **have network access**: necessary for the map view, and most likely for precise reverse geocoding too,
-- **view network connections**: checking for connection states allows Aves-Next to gracefully degrade features that depend on internet.
-
-## Contributing
-
-### Issues
-
-[Bug reports](https://github.com/CookieCums/Aves-Next/issues/new?assignees=&labels=type%3Abug&template=bug_report.yml&title=) and [feature requests](https://github.com/CookieCums/Aves-Next/issues/new?assignees=&labels=type%3Afeature&template=feature_request.yml&title=) are welcome, but read the [guidelines](https://github.com/CookieCums/Aves-Next/wiki) first. If you have questions, check out the [discussions](https://github.com/CookieCums/Aves-Next/discussions).
-
-### Code
-
-At this stage this project does *not* accept PRs.
-
-### Translations
-
-Translations are powered by [Weblate](https://hosted.weblate.org/engage/aves/) and the effort of wonderfully generous volunteers.
-<a href="https://hosted.weblate.org/engage/aves/">
-<img src="https://hosted.weblate.org/widgets/aves/-/multi-auto.svg" alt="Translation status" />
-</a>
-
-If you want to translate this app in your language and share the result, [there is a guide](https://github.com/CookieCums/Aves-Next/wiki/Contributing-to-Translations).
-
-### Donations
-
-Some users have expressed the wish to financially support the project. Thanks! ❤️
-
-[<img src="https://raw.githubusercontent.com/deckerst/common/main/assets/paypal-badge-cropped.png"
-      alt='Donate with PayPal'
-      height="40">](https://www.paypal.com/donate/?hosted_button_id=RWKQ4J7D8USX6)
-[<img src="https://liberapay.com/assets/widgets/donate.svg"
-      alt='Donate using Liberapay'
-      height="40">](https://liberapay.com/deckerst/donate)
-
 ## Project Setup
 
-Before running or building the app, update the dependencies for the desired flavor:
-```
-# scripts/apply_flavor_play.sh
+### Requirements
+
+Use the Flutter version bundled with this repository through `flutterw`. The repository and CI are configured around the project's current Flutter toolchain and Android build configuration.
+
+### Run Libre
+
+```bash
+./scripts/apply_flavor_libre.sh
+./flutterw run -t lib/main_libre.dart --flavor libre
 ```
 
-To build the project, create a file named `<app dir>/android/key.properties`. It should contain a reference to a keystore for app signing, and other necessary credentials. See [key_template.properties](https://github.com/CookieCums/Aves-Next/blob/develop/android/key_template.properties) for the expected keys.
+### Run Izzy
 
-To run the app:
-```
-# ./flutterw run -t lib/main_play.dart --flavor play
+```bash
+./scripts/apply_flavor_izzy.sh
+./flutterw run -t lib/main_izzy.dart --flavor izzy
 ```
 
-To debug the app Kotlin code, if attaching the debugger from Android Studio fails:
-1) open `android` folder in Android Studio,
-2) `Edit Configurations...`,
-3) select configuration `app`,
-4) select tab `Debugger`
-5) select tab `LLDB Post Attach Commands`
-6) add:
+### Build APKs
+
+```bash
+./scripts/apply_flavor_libre.sh
+./flutterw build apk -t lib/main_libre.dart --flavor libre --split-per-abi
+
+./scripts/apply_flavor_izzy.sh
+./flutterw build apk -t lib/main_izzy.dart --flavor izzy --split-per-abi
 ```
+
+### Release signing
+
+Release signing information is intentionally kept outside the repository. Create a `key.properties` file in the **project root**; the Android build reads that file before configuring the release signing config. You can also provide the same values through environment variables for CI.
+
+Use `android/key_template.properties` as the template. A PKCS#12 keystore is supported, including `.p12` or `.pfx` files:
+
+```properties
+storeFile=/absolute/path/to/aves-next-release.p12
+storePassword=YOUR_STORE_PASSWORD
+keyAlias=YOUR_KEY_ALIAS
+keyPassword=YOUR_KEY_PASSWORD
+storeType=pkcs12
+```
+
+Never commit `key.properties`, private signing keys, or keystore passwords. Android's current Gradle signing API supports a keystore `storeType`, with PKCS#12 as the documented default. urlAndroid signing configuration referencehttps://developer.android.com/reference/tools/gradle-api/9.4/com/android/build/api/variant/SigningConfigInfo
+
+### Debugging Kotlin code
+
+If attaching the debugger from Android Studio fails:
+1. Open the `android` folder in Android Studio.
+2. Open **Edit Configurations...**.
+3. Select configuration `app`.
+4. Open the **Debugger** tab.
+5. Open **LLDB Post Attach Commands**.
+6. Add:
+
+```text
 process handle SIGSEGV --pass true --stop false --notify true
 ```
 
-[Version badge]: https://img.shields.io/github/v/release/CookieCums/Aves-Next?include_prereleases&sort=semver
+## Permissions
+
+Aves-Next requires a few permissions to do its job, including media/storage access, media locations, network access, and connection-state access where required by the corresponding feature.
+
+## Contributing
+
+### Issues and discussions
+
+Bug reports and feature requests are welcome. Use the [Aves-Next issue tracker](https://github.com/CookieCums/Aves-Next/issues) and [discussions](https://github.com/CookieCums/Aves-Next/discussions).
+
+### Code
+
+At this stage this project does not accept pull requests while the fork is being stabilized and cleaned up.
+
+## Donations
+
+Aves-Next development can be supported directly through UPI.
+
+**Recipient:** Spookie  
+**UPI ID:** `godzspooky@okaxis`
+
+[Pay via UPI](upi://pay?pa=godzspooky%40okaxis&pn=Spookie&cu=INR)
+
+## License
+
+Aves-Next remains licensed under the BSD 3-Clause License. See [LICENSE](https://github.com/CookieCums/Aves-Next/blob/develop/LICENSE).
+
 [Build badge]: https://img.shields.io/github/actions/workflow/status/CookieCums/Aves-Next/build-apk.yml?branch=develop
