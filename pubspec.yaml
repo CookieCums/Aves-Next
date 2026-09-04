@@ -126,8 +126,6 @@ dependencies:
   printing:
   proj4dart:
   provider:
-  proj4dart:
-  provider:
   screen_brightness:
   shamsi_date:
   shared_preferences:
