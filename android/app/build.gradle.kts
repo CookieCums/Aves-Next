@@ -22,6 +22,7 @@ if (keystorePropertiesFile.exists()) {
     getEnv("storePassword", "AVES_STORE_PASSWORD")
     getEnv("keyAlias", "AVES_KEY_ALIAS")
     getEnv("keyPassword", "AVES_KEY_PASSWORD")
+    getEnv("storeType", "AVES_STORE_TYPE")
 }
 
 android {
@@ -55,6 +56,7 @@ android {
                 keyPassword = keystoreProperties["keyPassword"] as String
                 storeFile = file(storeFilePath)
                 storePassword = keystoreProperties["storePassword"] as String
+                storeType = keystoreProperties["storeType"] as String? ?: "pkcs12"
             }
         }
     }
