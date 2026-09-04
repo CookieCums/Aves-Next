@@ -69,8 +69,8 @@ class AppReference extends StatelessWidget {
   static List<Widget> buildLinks(BuildContext context) {
     final l10n = context.l10n;
     return [
-      LinkChip(
-        leading: const Icon(
+      const LinkChip(
+        leading: Icon(
           Icons.language,
           size: 24,
         ),
