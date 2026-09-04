@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="180" viewBox="0 0 720 180">
+<rect x="10" y="10" width="700" height="160" rx="36" fill="#5B6BF5"/>
+<text x="360" y="88" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" fill="#FFFFFF">Pay via UPI</text>
+<text x="360" y="135" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#FFFFFF">Open your UPI app</text>
+</svg>
