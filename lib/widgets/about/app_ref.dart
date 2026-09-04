@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class AppReference extends StatelessWidget {
   static const projectGithub = 'https://github.com/CookieCums/Aves-Next';
+  static const projectWebsite = 'https://cookiecums.github.io/Aves-Next/';
   static const projectFaq = '$projectGithub/wiki/FAQ';
   // Backward-compatible names used throughout the app.
   static const avesGithub = projectGithub;
@@ -68,6 +69,14 @@ class AppReference extends StatelessWidget {
   static List<Widget> buildLinks(BuildContext context) {
     final l10n = context.l10n;
     return [
+      LinkChip(
+        leading: const Icon(
+          Icons.language,
+          size: 24,
+        ),
+        text: 'Website',
+        urlString: AppReference.projectWebsite,
+      ),
       const LinkChip(
         leading: Icon(
           AIcons.github,
