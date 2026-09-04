@@ -9,44 +9,46 @@ on:
   schedule:
     - cron: '17 8 * * 3'
 
-# Declare default permissions as read only.
 permissions: read-all
 
 jobs:
   analyze_flutter:
     name: Flutter analysis
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
         with:
           egress-policy: audit
 
-      - name: Checkout repository
+      - name: Checkout repository and Flutter submodule
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
+
+      - name: Prepare Flutter version metadata
+        run: git -C .flutter tag -f 3.47.0-0.3.pre HEAD
 
       - name: Get Flutter packages
-        run: ./flutterw pub get
+        run: .flutter/bin/flutter pub get
 
       - name: Generate app localizations
-        run: ./flutterw gen-l10n
+        run: .flutter/bin/flutter gen-l10n
 
-      - name: Static analysis.
-        run: ./flutterw analyze
+      - name: Static analysis
+        run: .flutter/bin/flutter analyze
 
-      - name: Unit tests.
-        run: ./flutterw test
+      - name: Unit tests
+        run: .flutter/bin/flutter test
 
   analyze_codeql:
     name: CodeQL analysis (${{ matrix.language }})
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
-      # required for all workflows
       security-events: write
-
-      # required to fetch internal or private CodeQL packs
       packages: read
-
     strategy:
       fail-fast: false
       matrix:
@@ -59,31 +61,36 @@ jobs:
         with:
           egress-policy: audit
 
-      # Building relies on the Android Gradle plugin,
-      # which requires a modern Java version (not the default one).
       - name: Set up JDK for Android Gradle plugin
         uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '21'
 
-      - name: Checkout repository
+      - name: Checkout repository and Flutter submodule
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: recursive
 
-      # Initializes the CodeQL tools for scanning.
+      - name: Prepare Flutter version metadata
+        run: git -C .flutter tag -f 3.47.0-0.3.pre HEAD
+
+      - name: Get Flutter packages
+        run: .flutter/bin/flutter pub get
+
+      - name: Generate app localizations
+        run: .flutter/bin/flutter gen-l10n
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4.37.4
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
 
-      - if: matrix.build-mode == 'manual'
-        shell: bash
-        # build in profile mode, instead of release,
-        # so that setting up signing environment variables is not required
+      - name: Build Libre profile APK for CodeQL
         run: |
-          scripts/apply_flavor_play.sh
-          ./flutterw build apk --profile -t lib/main_play.dart --flavor play
+          scripts/apply_flavor_libre.sh
+          .flutter/bin/flutter build apk --profile -t lib/main_libre.dart --flavor libre
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4.37.4
