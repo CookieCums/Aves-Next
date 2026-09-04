@@ -159,19 +159,23 @@ If Aves-Next is useful to you and you would like to support continued developmen
 
 ### Support Aves-Next
 
-<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;cu=INR&amp;aid=uGICAgMD7uemSCA">
-  <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&amp;data=upi%3A%2F%2Fpay%3Fpa%3Dgodzspooky%2540okaxis%26pn%3DSpookie%26cu%3DINR%26aid%3DuGICAgMD7uemSCA" alt="Aves-Next UPI donation QR code" width="280">
+<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;aid=uGICAgMD7uemSCA">
+  <img src="assets/donations/pay-via-upi.svg" alt="Pay via UPI" width="360">
 </a>
 
-**[Pay via UPI](upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;cu=INR&amp;aid=uGICAgMD7uemSCA)**
+<br>
 
-**UPI ID:** `godzspooky@okaxis`
+<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;aid=uGICAgMD7uemSCA">
+  <img src="assets/donations/upi-spookie.svg" alt="Scan the Aves-Next UPI donation QR code" width="300">
+</a>
 
-Tap the QR code or **Pay via UPI** on a phone with a UPI app installed. On Android clients that allow the `upi://` scheme, this opens the available UPI app chooser with the recipient pre-filled.
+<p><strong>UPI ID:</strong> <code>godzspooky@okaxis</code></p>
+
+<p>Tap <strong>Pay via UPI</strong> on a phone with a UPI app installed to open the available UPI app chooser. You can also scan the QR code above from any compatible UPI app.</p>
 
 </div>
 
-> **Note:** The QR uses the same UPI payment data from the supplied donation QR. GitHub or a particular browser/app may restrict custom `upi://` links.
+> **Note:** GitHub or a particular browser/app may restrict custom `upi://` links. The QR code remains available as the fallback payment method.
 
 ## License
 
