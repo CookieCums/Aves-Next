@@ -15,6 +15,7 @@ import 'package:aves/theme/icons.dart';
 import 'package:aves/utils/android_file_utils.dart';
 import 'package:aves/utils/file_utils.dart';
 import 'package:aves/widgets/about/about_page.dart';
+import 'package:aves/widgets/about/app_ref.dart';
 import 'package:aves/widgets/collection/collection_page.dart';
 import 'package:aves/widgets/common/basic/text/outlined.dart';
 import 'package:aves/widgets/common/extensions/build_context.dart';
@@ -215,7 +216,7 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
                     OutlinedText(
                       textSpans: [
                         TextSpan(
-                          text: l10n.appName,
+                          text: AppRef.appName,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 38,
