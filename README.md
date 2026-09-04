@@ -9,7 +9,7 @@
 [![Build APK](https://github.com/CookieCums/Aves-Next/actions/workflows/build-apk.yml/badge.svg?branch=develop)](https://github.com/CookieCums/Aves-Next/actions/workflows/build-apk.yml)
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 
-[Downloads](#downloads) · [Build from source](#build-from-source) · [Report a bug](https://github.com/CookieCums/Aves-Next/issues) · [Discussions](https://github.com/CookieCums/Aves-Next/discussions)
+[Project site](https://cookiecums.github.io/Aves-Next/) · [Downloads](#downloads) · [Build from source](#build-from-source) · [Report a bug](https://github.com/CookieCums/Aves-Next/issues) · [Discussions](https://github.com/CookieCums/Aves-Next/discussions)
 
 </div>
 
@@ -19,7 +19,7 @@
 
 Aves-Next is a community fork of [Aves](https://github.com/deckerst/aves), focused on continuing development under a separate project identity.
 
-The current Android builds are distributed as **Libre** and **Izzy** variants. The project does **not** use Firebase or Google Play Services integration in these supported variants.
+The current Android builds are distributed as **Libre** and **Izzy** variants. The supported variants do not use Firebase or Google Play Services integration.
 
 > Aves-Next is an independent community fork. It is not an official release of the original Aves project.
 
@@ -33,21 +33,19 @@ The current Android builds are distributed as **Libre** and **Izzy** variants. T
 - [Development](#development)
 - [Permissions](#permissions)
 - [Contributing](#contributing)
-- [Donations](#donations)
+- [Support](#support)
 - [License](#license)
 
 ## Downloads
 
-APK builds are produced automatically by GitHub Actions for the `develop` branch.
+Release APKs are produced by GitHub Actions for the `develop` branch.
 
-| Variant | Description |
-| --- | --- |
-| **Libre** | Aves-Next build using the Libre service configuration |
-| **Izzy** | Aves-Next build using the Izzy service configuration |
+| Variant | Application ID | ABIs |
+| --- | --- | --- |
+| **Libre** | `ai.avesnext.libre` | `armeabi-v7a`, `arm64-v8a`, `x86_64` |
+| **Izzy** | `ai.avesnext` | `armeabi-v7a`, `arm64-v8a`, `x86_64` |
 
-### Latest CI builds
-
-Use the [Build APK workflow](https://github.com/CookieCums/Aves-Next/actions/workflows/build-apk.yml) and open the latest successful run to download the generated APK artifacts.
+Use the [Build APK workflow](https://github.com/CookieCums/Aves-Next/actions/workflows/build-apk.yml) and open a successful run to download the generated artifacts.
 
 There is currently **no official Google Play release** for Aves-Next.
 
@@ -56,12 +54,11 @@ There is currently **no official Google Play release** for Aves-Next.
 Aves-Next retains the core capabilities of the Aves codebase, including:
 
 - Fast browsing of large photo and video collections
-- Albums, tags, places, countries, and other collection views
+- Albums, tags, places, countries, maps, search, and filtering
 - Image and video metadata inspection
-- Search and filtering
 - File operations and media management
-- Support for common image and video formats
-- Android-specific media and storage integration
+- Support for common and uncommon image/video formats, including motion photos, panoramas, 360° media, and GeoTIFF-related workflows
+- Android integrations such as widgets, app shortcuts, screen saver handling, global search, media viewer/picker functionality, and Android TV support
 
 Feature behavior may change as the fork develops.
 
@@ -69,10 +66,10 @@ Feature behavior may change as the fork develops.
 
 ### Prerequisites
 
-- Flutter SDK supplied by the repository's `flutterw` wrapper
+- Git with submodule support
+- The repository's bundled Flutter SDK via `flutterw`
 - Android SDK
 - Java 21 for the current Android build configuration
-- Git with submodule support
 
 ### Clone
 
@@ -81,31 +78,33 @@ git clone --recurse-submodules https://github.com/CookieCums/Aves-Next.git
 cd Aves-Next
 ```
 
-### Libre build
+### Libre
 
 ```bash
 ./flutterw pub get
-./flutterw packages pub run build_runner build --delete-conflicting-outputs
-./flutterw build apk --flavor libre --release --split-per-abi
+./flutterw gen-l10n
+scripts/apply_flavor_libre.sh
+./flutterw build apk -t lib/main_libre.dart --flavor libre --split-per-abi
 ```
 
-### Izzy build
+### Izzy
 
 ```bash
 ./flutterw pub get
-./flutterw packages pub run build_runner build --delete-conflicting-outputs
-./flutterw build apk --flavor izzy --release --split-per-abi
+./flutterw gen-l10n
+scripts/apply_flavor_izzy.sh
+./flutterw build apk -t lib/main_izzy.dart --flavor izzy --split-per-abi
 ```
 
-For the exact CI build procedure, see [`build-apk.yml`](.github/workflows/build-apk.yml).
+For the CI implementation, see [`build-apk.yml`](.github/workflows/build-apk.yml).
 
 ## Release signing
 
-Aves-Next supports release signing through a local `android/key.properties` file or environment variables. **Do not commit your keystore or passwords.**
+Aves-Next supports release signing through `android/key.properties` or environment variables. **Do not commit your keystore or passwords.**
 
 A PKCS#12 keystore (`.p12` / `.pfx`) is supported explicitly.
 
-Example `android/key.properties`:
+Example:
 
 ```properties
 storeFile=/absolute/path/to/aves-next-release.p12
@@ -117,17 +116,15 @@ storeType=pkcs12
 
 A template is provided at [`android/key_template.properties`](android/key_template.properties).
 
-For Android's signing guidance, see the [official Android app signing documentation](https://developer.android.com/studio/publish/app-signing).
+See the [official Android app signing documentation](https://developer.android.com/studio/publish/app-signing).
 
 ### GitHub Actions signing
 
-CI signing credentials should be supplied through GitHub Actions secrets and protected files. Never commit a private signing key, keystore password, or key password to the repository.
+CI signing credentials should be supplied through GitHub Actions secrets and protected files. Never commit private signing keys or passwords.
 
 ## Development
 
-The project uses Flutter with a bundled Flutter wrapper and Android Gradle tooling.
-
-Useful commands:
+The project uses Flutter with a bundled Flutter SDK and Android Gradle tooling. Useful commands include:
 
 ```bash
 ./flutterw pub get
@@ -135,7 +132,7 @@ Useful commands:
 ./flutterw test
 ```
 
-For debugging, run the appropriate Flutter flavor from your development environment and inspect the generated build output before distributing an APK.
+Keep unrelated work separate and verify the affected build or test path before distributing an APK.
 
 ## Permissions
 
@@ -149,33 +146,17 @@ Contributions, bug reports, and project discussion are welcome.
 - [Discussions](https://github.com/CookieCums/Aves-Next/discussions)
 - [GitHub Actions](https://github.com/CookieCums/Aves-Next/actions)
 
-When submitting a change, keep unrelated work separate and verify the affected build or test path before opening a pull request.
+## Support
 
-## Donations
-
-If Aves-Next is useful to you and you would like to support continued development, you can donate via UPI.
+If Aves-Next is useful to you, support the project through the dedicated donation page. The QR code is intentionally kept **off this README** and is shown only on the support page.
 
 <div align="center">
 
-### Support Aves-Next
-
-<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;aid=uGICAgMD7uemSCA">
-  <img src="assets/donations/pay-via-upi.svg" alt="Pay via UPI" width="360">
-</a>
-
-<br>
-
-<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;aid=uGICAgMD7uemSCA">
-  <img src="assets/donations/upi-spookie.svg" alt="Scan the Aves-Next UPI donation QR code" width="300">
-</a>
-
-<p><strong>UPI ID:</strong> <code>godzspooky@okaxis</code></p>
-
-<p>Tap <strong>Pay via UPI</strong> on a phone with a UPI app installed to open the available UPI app chooser. You can also scan the QR code above from any compatible UPI app.</p>
+<a href="https://cookiecums.github.io/Aves-Next/support.html"><img src="docs/assets/support-badge.svg" alt="Support This Project" width="230"></a>
 
 </div>
 
-> **Note:** GitHub or a particular browser/app may restrict custom `upi://` links. The QR code remains available as the fallback payment method.
+The support page contains the supplied UPI QR code and the `upi://` payment button.
 
 ## License
 
