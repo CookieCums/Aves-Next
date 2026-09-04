@@ -159,19 +159,19 @@ If Aves-Next is useful to you and you would like to support continued developmen
 
 ### Support Aves-Next
 
-<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;cu=INR">
-  <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&amp;data=upi%3A%2F%2Fpay%3Fpa%3Dgodzspooky%2540okaxis%26pn%3DSpookie%26cu%3DINR" alt="Aves-Next UPI donation QR code" width="280">
+<a href="upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;cu=INR&amp;aid=uGICAgMD7uemSCA">
+  <img src="assets/upi-donation-qr.svg" alt="Aves-Next UPI donation QR code" width="280">
 </a>
 
-**[Pay via UPI](upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;cu=INR)**
+**[Pay via UPI](upi://pay?pa=godzspooky%40okaxis&amp;pn=Spookie&amp;cu=INR&amp;aid=uGICAgMD7uemSCA)**
 
 **UPI ID:** `godzspooky@okaxis`
 
-Tap **Pay via UPI** on a phone with a UPI app installed. On Android clients that allow the `upi://` scheme, this opens the available UPI app chooser with the recipient pre-filled.
+Tap the QR code or **Pay via UPI** on a phone with a UPI app installed. On Android clients that allow the `upi://` scheme, this opens the available UPI app chooser with the recipient pre-filled.
 
 </div>
 
-> **Note:** The QR image encodes the same UPI payment address shown above. The UPI deep link and QR are provided as convenience options; GitHub or a particular browser/app may restrict custom `upi://` links.
+> **Note:** The QR asset encodes the same UPI payment address and payment parameters supplied with the donation QR. GitHub or a particular browser/app may restrict custom `upi://` links.
 
 ## License
 
