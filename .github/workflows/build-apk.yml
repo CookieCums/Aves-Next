@@ -1,8 +1,7 @@
 name: Build APK
 
 # APK build pipeline; release APKs are uploaded as workflow artifacts.
-# Use the repository's bundled Flutter binary directly in CI so the flutter
-# wrapper does not try to fetch/rebind the Flutter submodule on a detached HEAD.
+# The Flutter submodule is pinned to the exact SDK required by pubspec.yaml.
 
 on:
   workflow_dispatch:
@@ -46,6 +45,12 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: gradle
+
+      - name: Prepare Flutter version metadata
+        run: |
+          # actions/checkout initializes submodules at a detached commit. Flutter
+          # otherwise reports 0.0.0-unknown when no version tag is present locally.
+          git -C .flutter tag -f 3.47.0-0.3.pre HEAD
 
       - name: Verify bundled Flutter
         run: .flutter/bin/flutter --version
