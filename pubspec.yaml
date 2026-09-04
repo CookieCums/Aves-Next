@@ -1,6 +1,7 @@
 name: aves
 description: A visual media gallery and metadata explorer app.
 repository: https://github.com/CookieCums/Aves-Next
+homepage: https://cookiecums.github.io/Aves-Next/
 publish_to: none
 
 version: 1.14.9+173
@@ -123,6 +124,8 @@ dependencies:
   permission_handler:
   pin_code_fields:
   printing:
+  proj4dart:
+  provider:
   proj4dart:
   provider:
   screen_brightness:
