@@ -216,7 +216,7 @@ class _AppDrawerState extends State<AppDrawer> with WidgetsBindingObserver {
                     OutlinedText(
                       textSpans: [
                         TextSpan(
-                          text: AppRef.appName,
+                          text: AppReference.appName,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 38,
