@@ -6,7 +6,7 @@
 
 ![Build badge][Build badge]
 
-Aves-Next is a community fork of Aves, a gallery and metadata explorer app built for Android with Flutter. The project focuses on an independent, Google-service-free Android build and Aves-Next-specific branding and tooling.
+Aves-Next is a community fork of Aves, a gallery and metadata explorer app built for Android with Flutter. The project focuses on independent Aves-Next branding and Android builds without Firebase or Google Play Services integration.
 
 ## Downloads
 
@@ -73,7 +73,7 @@ keyPassword=YOUR_KEY_PASSWORD
 storeType=pkcs12
 ```
 
-Never commit `key.properties`, private signing keys, or keystore passwords. Android's current Gradle signing API supports a keystore `storeType`, with PKCS#12 as the documented default. urlAndroid signing configuration referencehttps://developer.android.com/reference/tools/gradle-api/9.4/com/android/build/api/variant/SigningConfigInfo
+Never commit `key.properties`, private signing keys, or keystore passwords. See the [Android signing configuration reference](https://developer.android.com/reference/tools/gradle-api/9.4/com/android/build/api/variant/SigningConfigInfo) for the current signing configuration API.
 
 ### Debugging Kotlin code
 
