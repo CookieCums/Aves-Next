@@ -1,7 +1,8 @@
 name: Build APK
 
 # APK build pipeline; release APKs are uploaded as workflow artifacts.
-# Verify the current post-cleanup dependency graph on pushes to develop.
+# Use the repository's bundled Flutter binary directly in CI so the flutter
+# wrapper does not try to fetch/rebind the Flutter submodule on a detached HEAD.
 
 on:
   workflow_dispatch:
@@ -46,14 +47,14 @@ jobs:
           java-version: '21'
           cache: gradle
 
-      - name: Verify Flutter wrapper
-        run: ./flutterw --version
+      - name: Verify bundled Flutter
+        run: .flutter/bin/flutter --version
 
       - name: Get Flutter packages
-        run: ./flutterw pub get
+        run: .flutter/bin/flutter pub get
 
       - name: Generate app localizations
-        run: ./flutterw gen-l10n
+        run: .flutter/bin/flutter gen-l10n
 
       - name: Prepare APK output directories
         run: mkdir -p outputs/libre outputs/izzy
@@ -61,13 +62,13 @@ jobs:
       - name: Build Libre release APKs
         run: |
           scripts/apply_flavor_libre.sh
-          ./flutterw build apk -t lib/main_libre.dart --flavor libre --split-per-abi
+          .flutter/bin/flutter build apk -t lib/main_libre.dart --flavor libre --split-per-abi
           cp build/app/outputs/flutter-apk/*-libre-release.apk outputs/libre/
 
       - name: Build Izzy release APKs
         run: |
           scripts/apply_flavor_izzy.sh
-          ./flutterw build apk -t lib/main_izzy.dart --flavor izzy --split-per-abi
+          .flutter/bin/flutter build apk -t lib/main_izzy.dart --flavor izzy --split-per-abi
           cp build/app/outputs/flutter-apk/*-izzy-release.apk outputs/izzy/
 
       - name: Verify collected APKs
