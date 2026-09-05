@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - v*
+      - '[0-9]*'
 
 permissions: read-all
 
@@ -83,4 +84,4 @@ jobs:
         with:
           artifacts: "outputs/*.apk,outputs/SHA256SUMS.txt"
           body: "[Changelog](https://github.com/${{ github.repository }}/blob/develop/CHANGELOG.md#${{ github.ref_name }})"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: "${{ secrets.GITHUB_TOKEN }}"
