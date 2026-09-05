@@ -83,5 +83,5 @@ jobs:
         uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
         with:
           artifacts: "outputs/*.apk,outputs/SHA256SUMS.txt"
-          body: "[Changelog](https://github.com/${{ github.repository }}/blob/develop/CHANGELOG.md#${{ github.ref_name }})"
+          body: "[Changelog](https://github.com/${{ github.repository }}/blob/develop/CHANGELOG.md#v${{ github.ref_name }})"
           token: "${{ secrets.GITHUB_TOKEN }}"
